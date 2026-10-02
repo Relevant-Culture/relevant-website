@@ -1,3 +1,5 @@
+> **Update (Oct 2026):** images and fonts are no longer inlined. Images live in `/assets/img/`, fonts in `/assets/fonts/`, and `build_final.py` substitutes file paths. See `CLAUDE.md` at the repo root; the base64 notes below are historical.
+
 # Relevant website — handoff brief for a new Claude Code Cloud task
 
 This package exists because the chat-session cloud sandbox this work was done in cannot

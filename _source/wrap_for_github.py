@@ -27,6 +27,8 @@ doc = f"""<!doctype html>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Relevant — creating content for culture. We advise, curate and produce exhibitions, content and programmes for leading cultural institutions across Europe.">
 {title_block}
+<link rel="preload" href="assets/fonts/hanken-grotesk-600-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/hanken-grotesk-400-latin.woff2" as="font" type="font/woff2" crossorigin>
 {style_block}
 </head>
 <body>

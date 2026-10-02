@@ -14,13 +14,14 @@ Never commit secrets or tokens.
 
 ## Files
 
-- `index.html` — homepage. **Generated; don't hand-edit it.** Self-contained (~5 MB, images inlined as base64).
+- `index.html` — homepage. **Generated; don't hand-edit it.** Small (~140 KB); loads images from `assets/img/` and fonts from `assets/fonts/`.
+- `assets/img/` — homepage images (WebP, or the original JPEG where WebP wasn't smaller). Published.
+- `assets/fonts/` — self-hosted woff2 fonts used by the homepage. Published. (`legal.html` and `404.html` still embed their own copies.)
 - `legal.html` — legal / privacy / cookies page. Hand-edited directly (no build step).
 - `404.html` — custom not-found page. Hand-edited directly.
 - `CNAME` — custom domain (`www.relevant.es`). Don't remove.
 - `_source/` — not published (Jekyll skips `_` folders):
-  - `relevant-prototype.html` — **the homepage source; make homepage edits here.** Uses `{{TOKEN}}` placeholders for images.
-  - `relevant-research/img/**/*.dataurl.txt` — images as data URIs, one per token. Mapping is `TOKEN_TO_FILE` in `build_final.py`.
+  - `relevant-prototype.html` — **the homepage source; make homepage edits here.** Uses `{{TOKEN}}` placeholders for images; `build_final.py` maps each token to a file in `assets/img/` (`TOKEN_TO_FILE`).
   - `build_final.py` → writes `_source/relevant-final.html` (gitignored).
   - `wrap_for_github.py` → wraps that into the full document and writes `../index.html`. Also injects the Cloudflare Web Analytics snippet.
   - `HANDOFF_BRIEF.md` — original handoff notes.
@@ -39,7 +40,7 @@ Commit both the prototype and the regenerated `index.html`.
 
 ### Adding or replacing an image
 
-Encode it as a data URI (`data:image/jpeg;base64,...`) in a new `.dataurl.txt` under `_source/relevant-research/img/`, add a token to `TOKEN_TO_FILE` in `build_final.py`, reference `{{TOKEN}}` in the prototype, rebuild. Keep images compressed (aim for under ~300 KB each); the page is already large.
+Save it in `assets/img/` as WebP (e.g. Pillow: `im.save(out, 'WEBP', quality=80, method=6)`; no wider than ~1500 px), add a token to `TOKEN_TO_FILE` in `build_final.py`, reference `{{TOKEN}}` in the prototype, rebuild. Keep each image under ~200 KB. When *replacing* an image, use a new file name rather than overwriting, so browsers don't keep showing a cached old copy. Images below the top of the page should have `loading="lazy"`.
 
 ## Three languages: EN / ES / CA
 

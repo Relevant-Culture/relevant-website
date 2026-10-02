@@ -1,41 +1,44 @@
 import os
 
 BASE = os.path.dirname(os.path.abspath(__file__))
-IMG_DIR = os.path.join(BASE, 'relevant-research/img')
+# Images are published as separate files under assets/img/ at the site root.
+# Each {{TOKEN}} in the prototype becomes a relative URL to its file.
+IMG_DIR = os.path.join(BASE, '..', 'assets', 'img')
+IMG_URL = 'assets/img/'
 
 TOKEN_TO_FILE = {
-    'IMG_HERO': 'hero.dataurl.txt',
-    'IMG_OCEAN': 'becomingOcean.dataurl.txt',
-    'IMG_AI': 'aiExpo.dataurl.txt',
-    'IMG_SOLITUDE': 'solitude.dataurl.txt',
-    'IMG_DHUB': 'dhub.dataurl.txt',
-    'IMG_EATACTIMPACT': 'eatActImpact.dataurl.txt',
-    'IMG_BRAINS': 'brains.dataurl.txt',
-    'IMG_MARS': 'mars.dataurl.txt',
-    'IMG_QUANTUM': 'quantum.dataurl.txt',
-    'IMG_TECHFORGOOD': 'techForGood.dataurl.txt',
-    'IMG_CONNECTEDBEINGS': 'connectedBeings.dataurl.txt',
-    'IMG_BIGBANGDATA': 'bigBangData.dataurl.txt',
-    'IMG_GAMEPLAY': 'gamePlay.dataurl.txt',
-    'IMG_RESIDENCIA': 'residencia.dataurl.txt',
-    'IMG_TECLASALA': 'teclaSala.dataurl.txt',
-    'IMG_CANREON': 'canReon.dataurl.txt',
-    'IMG_LLETRESCATALANES': 'lletresCatalanes.dataurl.txt',
-    'IMG_DEMA': 'dema.dataurl.txt',
-    'IMG_CULTUREINDATA': 'cultureInData.dataurl.txt',
-    'LIAISON_CCCB': 'liaison/cccb.dataurl.txt',
-    'LIAISON_SOMERSET': 'liaison/somerset.dataurl.txt',
-    'LIAISON_BARBICAN': 'liaison/barbican.dataurl.txt',
-    'LIAISON_HKW': 'liaison/hkw.dataurl.txt',
-    'LIAISON_VILLAARSON': 'liaison/villaArson.dataurl.txt',
-    'LIAISON_DHUB': 'liaison/dhub.dataurl.txt',
-    'LIAISON_WAAG': 'liaison/waag.dataurl.txt',
-    'LIAISON_RESIDENCIA': 'liaison/residencia.dataurl.txt',
-    'LIAISON_MOBILEWORLD': 'liaison/mobileWorld.dataurl.txt',
-    'LIAISON_COSMOCAIXA': 'liaison/cosmocaixa.dataurl.txt',
-    'LIAISON_CERVANTES': 'liaison/cervantes.dataurl.txt',
-    'LIAISON_BSC': 'liaison/bsc.dataurl.txt',
-    'IMG_LOGO': 'logo_relevant.dataurl.txt',
+    'IMG_HERO': 'hero.webp',
+    'IMG_OCEAN': 'becomingOcean.webp',
+    'IMG_AI': 'aiExpo.webp',
+    'IMG_SOLITUDE': 'solitude.webp',
+    'IMG_DHUB': 'dhub.jpg',
+    'IMG_EATACTIMPACT': 'eatActImpact.webp',
+    'IMG_BRAINS': 'brains.webp',
+    'IMG_MARS': 'mars.webp',
+    'IMG_QUANTUM': 'quantum.webp',
+    'IMG_TECHFORGOOD': 'techForGood.webp',
+    'IMG_CONNECTEDBEINGS': 'connectedBeings.webp',
+    'IMG_BIGBANGDATA': 'bigBangData.jpg',
+    'IMG_GAMEPLAY': 'gamePlay.webp',
+    'IMG_RESIDENCIA': 'residencia.jpg',
+    'IMG_TECLASALA': 'teclaSala.webp',
+    'IMG_CANREON': 'canReon.jpg',
+    'IMG_LLETRESCATALANES': 'lletresCatalanes.jpg',
+    'IMG_DEMA': 'dema.jpg',
+    'IMG_CULTUREINDATA': 'cultureInData.webp',
+    'LIAISON_CCCB': 'liaison/cccb.webp',
+    'LIAISON_SOMERSET': 'liaison/somerset.webp',
+    'LIAISON_BARBICAN': 'liaison/barbican.webp',
+    'LIAISON_HKW': 'liaison/hkw.webp',
+    'LIAISON_VILLAARSON': 'liaison/villaArson.jpg',
+    'LIAISON_DHUB': 'liaison/dhub.webp',
+    'LIAISON_WAAG': 'liaison/waag.webp',
+    'LIAISON_RESIDENCIA': 'liaison/residencia.webp',
+    'LIAISON_MOBILEWORLD': 'liaison/mobileWorld.webp',
+    'LIAISON_COSMOCAIXA': 'liaison/cosmocaixa.webp',
+    'LIAISON_CERVANTES': 'liaison/cervantes.webp',
+    'LIAISON_BSC': 'liaison/bsc.jpg',
+    'IMG_LOGO': 'logo_relevant.webp',
 }
 
 with open(os.path.join(BASE, 'relevant-prototype.html'), encoding='utf-8') as f:
@@ -52,13 +55,8 @@ for token, fname in TOKEN_TO_FILE.items():
     if not os.path.exists(path):
         missing.append((token, 'file missing: ' + path))
         continue
-    with open(path, encoding='utf-8') as imgf:
-        dataurl = imgf.read().strip()
-    if not dataurl.startswith('data:image/'):
-        missing.append((token, 'bad dataurl prefix in ' + path))
-        continue
-    html = html.replace(placeholder, dataurl)
-    print(f'{token}: replaced {count_before} occurrence(s), {len(dataurl)} chars')
+    html = html.replace(placeholder, IMG_URL + fname)
+    print(f'{token}: replaced {count_before} occurrence(s) -> {IMG_URL}{fname}')
 
 if missing:
     print('MISSING/ERRORS:', missing)
