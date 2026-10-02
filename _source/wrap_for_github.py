@@ -31,6 +31,7 @@ doc = f"""<!doctype html>
 </head>
 <body>
 {body_content.rstrip()}
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "64f36d742d664a7c9ab14d21df5825d3"}}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>
 """
