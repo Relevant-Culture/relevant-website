@@ -634,12 +634,22 @@
           <p data-i18n="contact.sub">Tell us about your institution, your idea, or your next exhibition.</p>
         </div>
         <div class="contact-cta">
-          <a class="btn btn-solid" href="mailto:info@relevant.es" target="_blank" rel="noopener"><span data-i18n="contact.button">Email us</span><span class="btn-arrow">→</span></a>
-          <a class="contact-addr" href="mailto:info@relevant.es">info@relevant.es</a>
+          <a class="btn btn-solid js-mail" href="#contact"><span data-i18n="contact.button">Email us</span><span class="btn-arrow">→</span></a>
+          <a class="contact-addr js-mail js-mail-text" href="#contact">info [at] relevant.es</a>
         </div>
       </div>
     </div>
   </section>
+  <script>
+  (function(){
+    var a=["se.tnaveler","ofni"].map(function(x){return x.split("").reverse().join("");});
+    var addr=a[1]+String.fromCharCode(64)+a[0];
+    document.querySelectorAll(".js-mail").forEach(function(el){
+      el.setAttribute("href","mai"+"lto:"+addr);
+      if(el.classList.contains("js-mail-text")) el.textContent=addr;
+    });
+  })();
+  </script>
 
   <footer>
     <div class="wrap foot-row">
